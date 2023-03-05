@@ -4,7 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationConverter;
 
 import javax.servlet.http.HttpServletRequest;
-
+//this class is used to convert the request into an authentication object
 public class JwtAuthenticationConverter implements AuthenticationConverter {
 
     @Override

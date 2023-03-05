@@ -4,7 +4,7 @@ import com.scaler.authdemo.users.UsersService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-
+//after JWT conversion, this class is used to authenticate the user
 public class JwtAuthenticationManager implements AuthenticationManager {
     private JwtService jwtService;
     private UsersService usersService;

@@ -16,6 +16,9 @@ public class AboutController {
     }
 
     @GetMapping("/private")
+    //this annotation is used to get the authentication object from the security context
+    //this returns the principal object which is set in the authentication object
+    // we can get same details by using SecurityContextHolder.getContext().getAuthentication().getPrincipal()
     String privateAbout(@AuthenticationPrincipal UserResponseDto user) {
         var username = user.getUsername();
         return "This is private about information for logged in users only" +

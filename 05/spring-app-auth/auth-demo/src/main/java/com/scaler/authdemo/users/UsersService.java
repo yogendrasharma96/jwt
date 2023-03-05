@@ -24,9 +24,10 @@ public class UsersService {
         this.authTokenService = authTokenService;
         this.jwtService = jwtService;
     }
-
+//sign up request
     public UserResponseDto createUser(CreateUserDto request) {
         var user = modelMapper.map(request, UserEntity.class);
+        //encode password before saving to db in encrypt format
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         var savedUser = usersRepo.save(user);
         var response = modelMapper.map(savedUser, UserResponseDto.class);
@@ -34,21 +35,24 @@ public class UsersService {
         // var token = authTokenService.createToken(savedUser);
         // response.setToken(token);
         // OPTION 2: JWT
+        // create and return jwt token to client
         var token = jwtService.createJwt(savedUser.getUsername());
         response.setToken(token);
         return response;
     }
-
+//login request
     public UserResponseDto verifyUser(LoginUserDto request) {
         UserEntity user = usersRepo.findByUsername(request.getUsername());
 
         if (user == null) {
             throw new RuntimeException("User not found");
         }
+
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
         var response = modelMapper.map(user, UserResponseDto.class);
+        //return token to client after login
         response.setToken(authTokenService.createToken(user));
         return response;
     }

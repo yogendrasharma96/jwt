@@ -9,7 +9,7 @@ public class JwtAuthenticationFilter extends AuthenticationFilter {
             JwtAuthenticationManager authenticationManager
     ) {
         super(authenticationManager, new JwtAuthenticationConverter());
-
+//after successful authentication, the authentication object is set in the security context
         this.setSuccessHandler((request, response, authentication) -> {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         });
